@@ -2,7 +2,7 @@
    main.js — Navigation, scroll animations, API integrations
    ============================================================ */
 
-const API_URL = '/api'; // Using relative path allows it to work on any host
+const API_URL = 'https://kprojectxx.onrender.com/api'; // Using relative path allows it to work on any host
 
 document.addEventListener('DOMContentLoaded', () => {
 
