@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — KPROJECTXX University Innovation Lab</title>
+  <meta name="description" content="Meet the talented engineers, designers, and innovators behind KPROJECTXX. Explore our team members, their roles, and skills." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .team-card.featured {
+      border-color: rgba(201,147,10,0.35);
+      background: linear-gradient(135deg, rgba(201,147,10,0.06), var(--dark2));
+    }
+    .rank-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      background: rgba(201,147,10,0.12);
+      border: 1px solid rgba(201,147,10,0.3);
+      border-radius: 30px;
+      font-size: 0.68rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .team-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 56px 0 40px;
+    }
+    .team-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .team-divider-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Join CTA */
+    .join-cta {
+      background: linear-gradient(135deg, rgba(201,147,10,0.07), transparent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .join-cta::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,147,10,0.1) 0%, transparent 70%);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="KPROJECTXX Logo" />
+      <span class="nav-logo-text">KPROJECT<span>XX</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html" class="active">Team</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="team.html" class="active">Team</a>
+    <a href="projects.html">Projects</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ══ PAGE HERO ══════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="glow-orb" style="width:500px;height:500px;top:-150px;left:50%;transform:translateX(-50%);"></div>
+      <div class="page-hero-content">
+        <div class="section-label" style="justify-content:center;">The People</div>
+        <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem);">Meet the <span>Team</span></h1>
+        <p class="section-sub" style="margin:16px auto 0;">
+          A collective of curious, driven, and talented individuals united by one goal — building things that matter.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ TEAM CONTENT ═══════════════════════════════════════ -->
+    <section class="section">
+
+      <!-- Leadership -->
+      <div class="section-label">Leadership</div>
+      <h2 class="section-title" style="margin-bottom:40px;">Our <span>Leaders</span></h2>
+
+      <div class="leadership-grid" id="leads-grid">
+        <!-- Dynamically populated via main.js -->
+        <p style="color:var(--muted); text-align:center; width:100%;">Loading leadership team...</p>
+      </div>
+
+      <!-- Divider -->
+      <div class="team-divider">
+        <div class="team-divider-line"></div>
+        <span class="team-divider-label">Core Members</span>
+        <div class="team-divider-line"></div>
+      </div>
+
+      <!-- Core members -->
+      <div class="grid-4" id="core-grid">
+        <!-- Dynamically populated via main.js -->
+        <p style="color:var(--muted); text-align:center; width:100%; grid-column:1/-1;">Loading core members...</p>
+      </div>
+
+      <!-- Join CTA -->
+      <div class="join-cta fade-in" style="margin-top:80px;">
+        <div style="font-size:2.5rem;margin-bottom:16px;">🦁</div>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:14px;">Want to be part of the pride?</h2>
+        <p style="color:var(--muted);max-width:480px;margin:0 auto 32px;font-size:0.95rem;line-height:1.7;">We recruit passionate students every semester. No prior experience required — just curiosity and the drive to build.</p>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Apply Now</a>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="assets/logo.jpg" alt="KPROJECTXX" style="height:36px;width:36px;" />
+          <span class="nav-logo-text">KPROJECT<span>XX</span></span>
+        </div>
+        <p>A university projects team building innovative solutions at the intersection of AI, Web, and Hardware.</p>
+        <div class="footer-socials" style="margin-top:20px;">
+          <a href="#" class="btn-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="contact.html">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 KPROJECTXX University Team. All rights reserved.</div>
+      <div style="color:var(--muted2);">Built with passion 🔥</div>
+    </div>
+  </footer>
+
+  <script src="js/particles.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

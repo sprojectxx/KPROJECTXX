@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPROJECTXX — University Innovation Lab</title>
+  <meta name="description"
+    content="KPROJECTXX is a Professional Sports Team and Research and Development Centre. National Robotics Team - Hyderabad. We are not here to be average 🦸." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Home-page specific styles */
+    .home-about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-hexagon {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, rgba(201, 147, 10, 0.08), rgba(201, 147, 10, 0.02));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hexagon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(201, 147, 10, 0.15), transparent 70%);
+    }
+
+    .about-hexagon img {
+      width: 160px;
+      filter: drop-shadow(0 0 40px rgba(201, 147, 10, 0.6));
+    }
+
+    .about-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      animation: spin 18s linear infinite;
+    }
+
+    .about-ring-1 {
+      width: 360px;
+      height: 360px;
+      animation-duration: 22s;
+    }
+
+    .about-ring-2 {
+      width: 440px;
+      height: 440px;
+      border-style: dashed;
+      animation-duration: 30s;
+      animation-direction: reverse;
+    }
+
+    .about-dots {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .about-dot-1 {
+      top: 0;
+      left: 50%;
+      animation: orbitDot 22s linear infinite;
+      transform-origin: 0 180px;
+    }
+
+    .about-dot-2 {
+      top: 0;
+      left: 50%;
+      animation: orbitDot 30s linear infinite reverse;
+      transform-origin: 0 220px;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes orbitDot {
+      from {
+        transform: rotate(0deg) translateY(-180px);
+      }
+
+      to {
+        transform: rotate(360deg) translateY(-180px);
+      }
+    }
+
+    /* Featured projects preview */
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    /* Mission cards */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .mission-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .mission-card:hover {
+      border-color: var(--border-h);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--gold-glow);
+    }
+
+    .mission-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .mission-card h3 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .mission-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* CTA section */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(201, 147, 10, 0.08) 0%, rgba(10, 10, 10, 0) 60%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 70px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(201, 147, 10, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @media (max-width: 800px) {
+      .home-about {
+        grid-template-columns: 1fr;
+      }
+
+      .about-visual {
+        display: none;
+      }
+
+      .mission-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .mission-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Particle canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="KPROJECTXX Logo" />
+      <span class="nav-logo-text"><span>K</span>PROJECT<span>XX</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="team.html">Team</a>
+    <a href="projects.html">Projects</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ══ HERO ══════════════════════════════════════════════ -->
+    <section class="hero">
+      <!-- Glow orbs -->
+      <div class="glow-orb" style="width:600px;height:600px;top:-200px;left:-200px;"></div>
+      <div class="glow-orb" style="width:400px;height:400px;bottom:-100px;right:-100px;opacity:0.7;"></div>
+
+      <div class="hero-content">
+        <div class="hero-logo">
+          <img src="assets/logo.jpg" alt="KPROJECTXX" />
+        </div>
+        <div class="hero-badge">
+          <span></span> Professional Sports Team · Research & Development Centre
+        </div>
+        <h1 class="hero-title">
+          National <span class="gold">Robotics Team</span><br />
+          <span class="outline">Hyderabad.</span>
+        </h1>
+        <p class="hero-sub">
+          We are not here to be average 🦸. A team of passionate engineers, designers, and dreamers at the forefront of
+          technology.
+        </p>
+        <div class="hero-cta">
+          <a href="projects.html" class="btn btn-primary"><i class="fa-solid fa-flask"></i> Explore Projects</a>
+          <a href="team.html" class="btn btn-outline"><i class="fa-solid fa-users"></i> Meet the Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STATS ══════════════════════════════════════════════ -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num" data-target="20" data-suffix="+">0+</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="15" data-suffix="+">0+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="8" data-suffix="">0</div>
+        <div class="stat-label">Awards Won</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="6" data-suffix="">0</div>
+        <div class="stat-label">Expos & Events</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ ABOUT / MISSION ════════════════════════════════════ -->
+    <section class="section">
+      <div class="home-about">
+        <div class="fade-in">
+          <div class="section-label">About Us</div>
+          <h2 class="section-title">National Robotics Team<br /><span>Hyderabad</span></h2>
+          <p class="section-sub">
+            KPROJECTXX is a Professional Sports Team and Research and Development Centre. We are not here to be average
+            🦸. From AI models to hardware prototypes, we build solutions that matter.
+          </p>
+          <div style="margin-top:32px;display:flex;gap:32px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--gold);">Robotics
+              </div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Core Focus</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--gold);">BOT
+              </div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Development</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--gold);">IoT</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Hardware</div>
+            </div>
+          </div>
+          <div style="margin-top:36px;">
+            <a href="team.html" class="btn btn-outline"><i class="fa-solid fa-arrow-right"></i> Meet the Team</a>
+          </div>
+        </div>
+        <div class="about-visual fade-in fade-in-delay-2">
+          <div class="about-ring about-ring-1"></div>
+          <div class="about-ring about-ring-2"></div>
+          <div class="about-hexagon">
+            <img src="assets/logo.jpg" alt="KPROJECTXX" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission cards -->
+      <div class="mission-grid">
+        <div class="mission-card fade-in">
+          <span class="mission-icon">🚀</span>
+          <h3>Innovate</h3>
+          <p>Push boundaries with cutting-edge tech solutions that address real-world challenges.</p>
+        </div>
+        <div class="mission-card fade-in fade-in-delay-1">
+          <span class="mission-icon">🤝</span>
+          <h3>Collaborate</h3>
+          <p>Diverse minds, one mission. Cross-discipline teamwork drives our best outcomes.</p>
+        </div>
+        <div class="mission-card fade-in fade-in-delay-2">
+          <span class="mission-icon">🏆</span>
+          <h3>Excel</h3>
+          <p>Compete at national and international levels to prove our ideas stand out.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ FEATURED PROJECTS ══════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-label">What We Build</div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p class="section-sub">A snapshot of our best work — from AI-powered apps to hardware breakthroughs.</p>
+      </div>
+
+      <div class="grid-3" id="home-projects-grid">
+        <!-- Dynamically populated from frontend/js/main.js -->
+
+      <div style="text-align:center;margin-top:48px;">
+        <a href="projects.html" class="btn btn-primary"><i class="fa-solid fa-grid-2"></i> View All Projects</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══ CTA ════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="cta-section fade-in">
+        <div class="section-label" style="justify-content:center;">Join Us</div>
+        <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Ready to build something
+          <span>extraordinary?</span>
+        </h2>
+        <p style="color:var(--muted);max-width:500px;margin:16px auto 36px;line-height:1.7;">We're always looking for
+          passionate builders, designers, and innovators. Reach out and let's create together.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
+          <a href="achievements.html" class="btn btn-outline"><i class="fa-solid fa-trophy"></i> Our Achievements</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-wrapper -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="assets/logo.jpg" alt="KPROJECTXX" style="height:36px;width:36px;" />
+          <span class="nav-logo-text">KPROJECT<span>XX</span></span>
+        </div>
+        <p>Professional Sports Team and Research and Development Centre. National Robotics Team - Hyderabad. We are not
+          here to be average 🦸.</p>
+        <div class="footer-socials" style="margin-top:20px;">
+          <a href="#" class="btn-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="contact.html">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 KPROJECTXX University Team. All rights reserved.</div>
+      <div style="color:var(--muted2);">Built with passion 🔥</div>
+    </div>
+  </footer>
+
+  <script src="js/particles.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — KPROJECTXX University Innovation Lab</title>
+  <meta name="description" content="Explore all projects built by KPROJECTXX — from AI models to IoT hardware. Filter by category and view source code." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .featured-project {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 0;
+      background: var(--dark2);
+      border: 1px solid var(--border-h);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 64px;
+      transition: var(--transition);
+    }
+    .featured-project:hover {
+      box-shadow: 0 24px 70px rgba(0,0,0,0.6), 0 0 40px var(--gold-glow);
+    }
+    .featured-project-visual {
+      background: linear-gradient(135deg, rgba(201,147,10,0.1) 0%, rgba(10,10,10,0) 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      min-height: 340px;
+      position: relative;
+    }
+    .featured-label {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 30px;
+    }
+    .featured-project-body {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-project-body .project-title {
+      font-size: 1.7rem;
+      margin-bottom: 14px;
+    }
+    .featured-project-body .project-desc {
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 760px) {
+      .featured-project { grid-template-columns: 1fr; }
+      .featured-project-visual { min-height: 200px; }
+      .featured-project-body { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo.jpg" alt="KPROJECTXX Logo" />
+      <span class="nav-logo-text">KPROJECT<span>XX</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="team.html">Team</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ══ PAGE HERO ══════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="glow-orb" style="width:500px;height:500px;top:-150px;left:50%;transform:translateX(-50%);"></div>
+      <div class="page-hero-content">
+        <div class="section-label" style="justify-content:center;">What We Build</div>
+        <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem);">Our <span>Projects</span></h1>
+        <p class="section-sub" style="margin:16px auto 0;">
+          Real solutions to real problems. Every project here started with one question: <em style="color:var(--gold)">"What if?"</em>
+        </p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+
+
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="AI / ML">AI / ML</button>
+        <button class="filter-btn" data-filter="Web Apps">Web Apps</button>
+        <button class="filter-btn" data-filter="Mobile Apps">Mobile Apps</button>
+        <button class="filter-btn" data-filter="IoT">IoT / Hardware</button>
+        <button class="filter-btn" data-filter="Data">Data</button>
+      </div>
+
+      <!-- All projects grid -->
+      <div class="grid-3" id="projects-grid">
+        <!-- Dynamically populated via main.js -->
+        <p style="color:var(--muted); text-align:center; width:100%; grid-column:1/-1;">Loading projects...</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="assets/logo.jpg" alt="KPROJECTXX" style="height:36px;width:36px;" />
+          <span class="nav-logo-text">KPROJECT<span>XX</span></span>
+        </div>
+        <p>A university projects team building innovative solutions at the intersection of AI, Web, and Hardware.</p>
+        <div class="footer-socials" style="margin-top:20px;">
+          <a href="#" class="btn-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="btn-icon"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="contact.html">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 KPROJECTXX University Team. All rights reserved.</div>
+      <div style="color:var(--muted2);">Built with passion 🔥</div>
+    </div>
+  </footer>
+
+  <script src="js/particles.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

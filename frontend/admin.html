@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPROJECTXX Admin Portal Pro</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome (Alternative to SVG if already built-in, but styled cleanly) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* ====================================================
+           UI UX Pro Max — Glassmorphism & Bento Pattern
+           ==================================================== */
+        :root {
+            --glass-bg: rgba(22, 22, 22, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --gold-glow-soft: rgba(201, 147, 10, 0.15);
+            --glass-blur: blur(24px);
+        }
+        
+        body {
+            padding-top: 0;
+            background: radial-gradient(circle at top right, rgba(201,147,10,0.05), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(201,147,10,0.03), transparent 40%),
+                        var(--black);
+            overflow: hidden; /* App feels native */
+        }
+        
+        .admin-layout {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- GLASS SIDEBAR --- */
+        .sidebar {
+            width: 280px;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--glass-border);
+            padding: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .sidebar-logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .sidebar-logo img { width: 45px; filter: drop-shadow(0 0 10px var(--gold-glow-soft)); }
+        .sidebar-logo-text { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--white); }
+        .sidebar-logo-text span { color: var(--gold); }
+        
+        .sidebar-nav { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; padding: 0 1.5rem; }
+        .nav-item {
+            padding: 0.85rem 1.2rem;
+            color: var(--muted);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .nav-item i { width: 20px; text-align: center; opacity: 0.7; transition: 0.3s; }
+        .nav-item:hover {
+            color: var(--white);
+            background: rgba(255,255,255,0.03);
+        }
+        .nav-item.active {
+            color: var(--gold);
+            background: var(--gold-glow-soft);
+            box-shadow: inset 2px 0 0 var(--gold);
+        }
+        .nav-item.active i { opacity: 1; filter: drop-shadow(0 0 8px var(--gold)); }
+        
+        /* --- MAIN CONTENT (BENTO STAGE) --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            overflow-y: auto;
+            position: relative;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .section-header h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+        .section-header p { color: var(--muted); margin-top: 5px; font-size: 0.95rem; }
+
+        /* --- BENTO LISTS (Replacing Tables) --- */
+        .bento-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .bento-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr auto;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 18px 24px;
+            transition: var(--transition);
+        }
+        .bento-row:hover {
+            background: rgba(30, 30, 30, 0.6);
+            border-color: rgba(201, 147, 10, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .bento-header-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr auto;
+            padding: 0 24px 12px;
+            font-family: var(--font-head);
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .bento-cell { font-size: 0.95rem; color: var(--white); }
+        .bento-cell.muted { color: var(--muted); font-size: 0.85rem;}
+        
+        /* Action Buttons */
+        .action-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted);
+            transition: all 0.2s ease;
+        }
+        .action-btn:hover { background: rgba(255, 71, 87, 0.15); border-color: #ff4757; color: #ff4757; transform: scale(1.05); }
+
+        /* --- PRO MAX FORMS --- */
+        .admin-form {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 3rem;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .admin-form.active { display: block; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
+        .form-group.full { grid-column: 1 / -1; }
+        
+        .form-control, select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            border-radius: 10px;
+            font-family: var(--font-main);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        .form-control:focus, select:focus {
+            outline: none;
+            background: rgba(0,0,0,0.5);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px var(--gold-glow-soft);
+        }
+        label {
+            display: block; margin-bottom: 8px; font-size: 0.8rem;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+        }
+
+        /* --- BUTTON ENHANCEMENTS --- */
+        .btn { border-radius: 10px; font-weight: 600; padding: 12px 24px; }
+        .btn-primary { box-shadow: 0 4px 14px var(--gold-glow); }
+        .btn-primary:active { transform: scale(0.97); }
+        
+        /* --- LOGIN SCREEN --- */
+        #login-screen {
+            position: fixed; inset: 0;
+            background: radial-gradient(circle at center, rgba(30,30,30,1) 0%, rgba(10,10,10,1) 100%);
+            display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .login-box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            padding: 3.5rem 3rem;
+            border-radius: 24px;
+            width: 100%; max-width: 420px;
+            text-align: center;
+            border: 1px solid rgba(201, 147, 10, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 40px var(--gold-glow);
+            animation: floatIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .login-box input {
+            text-align: center; font-size: 1.1rem; letter-spacing: 0.1em;
+            background: rgba(0,0,0,0.5);
+        }
+        #admin-app { display: none; }
+        
+        /* Contact Message Cards */
+        .msg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .msg-card {
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 24px; transition: var(--transition);
+        }
+        .msg-card:hover { border-color: rgba(201, 147, 10, 0.3); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+
+    <!-- PRO MAX LOGIN SCREEN -->
+    <div id="login-screen">
+        <div class="login-box">
+            <img src="assets/logo.jpg" alt="KPROJECTXX" style="width: 70px; margin-bottom: 1.5rem; filter: drop-shadow(0 0 15px rgba(201,147,10,0.4));">
+            <h2 class="h2" style="margin-bottom: 8px; font-family: var(--font-head); font-weight: 700;">Admin Engine</h2>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem;">Secure Access Only</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="password" id="admin-pass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 14px;">Authenticate</button>
+            </form>
+            <p id="login-error" style="color: #ff4757; margin-top: 1rem; display: none; font-size: 0.85rem;"><i class="fas fa-exclamation-circle"></i> Invalid credentials</p>
+        </div>
+    </div>
+
+    <!-- PRO MAX DASHBOARD -->
+    <div id="admin-app" class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="assets/logo.jpg" alt="Logo">
+                <div class="sidebar-logo-text">KPROJECT<span>XX</span> Admin</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-tab="members"><i class="fas fa-user-astronaut"></i> Team</div>
+                <div class="nav-item" data-tab="projects"><i class="fas fa-code-branch"></i> Projects</div>
+                <div class="nav-item" data-tab="achievements"><i class="fas fa-award"></i> Achievements</div>
+                <div class="nav-item" data-tab="messages"><i class="fas fa-inbox"></i> Inbox</div>
+                <div style="flex-grow:1;"></div>
+                <div class="nav-item" style="color: #ff4757;" id="logout-btn"><i class="fas fa-power-off"></i> Logout</div>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-scroll">
+            
+            <!-- Tab: Members -->
+            <section id="tab-members" class="tab-pane">
+                <div class="section-header">
+                    <div>
+                        <h2 class="h2">Team Roster</h2>
+                        <p>Manage core developers and leads</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="toggleForm('member-form')"><i class="fas fa-plus"></i> Add Member</button>
+                </div>
+                
+                <form id="member-form" class="admin-form">
+                    <h3 style="margin-bottom: 2rem; color: var(--gold); font-family: var(--font-head);"><i class="fas fa-user-plus"></i> New Team Member</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Full Name</label><input type="text" id="m-name" class="form-control" required placeholder="e.g. Alex Chen"></div>
+                        <div class="form-group"><label>Role / Title</label><input type="text" id="m-role" class="form-control" required placeholder="e.g. Lead AI Engineer"></div>
+                        <div class="form-group"><label>Access Level</label><select id="m-type"><option value="core">Core Member</option><option value="lead">Management Lead</option></select></div>
+                        <div class="form-group"><label>Tech Stack (Comma Separated)</label><input type="text" id="m-skills" class="form-control" placeholder="Python, React, PyTorch"></div>
+                        <div class="form-group"><label>GitHub URL</label><input type="url" id="m-github" class="form-control" placeholder="https://github.com/..."></div>
+                        <div class="form-group"><label>LinkedIn URL</label><input type="url" id="m-linkedin" class="form-control" placeholder="https://linkedin.com/in/..."></div>
+                        <div class="form-group full"><label>Profile Image</label><input type="file" id="m-image" class="form-control" accept="image/*"></div>
+                        <div class="form-group full" style="display: flex; gap: 15px; margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Deploy Member</button>
+                            <button type="button" class="btn btn-outline" onclick="toggleForm('member-form')">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="bento-header-row">
+                    <div>Identity</div>
+                    <div>Access Level</div>
+                    <div>Core Skills</div>
+                    <div style="text-align: right;">Action</div>
+                </div>
+                <div class="bento-list" id="members-list">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+            <!-- Tab: Projects -->
+            <section id="tab-projects" class="tab-pane" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2 class="h2">Project Portfolio</h2>
+                        <p>Manage active and completed systems</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="toggleForm('project-form')"><i class="fas fa-plus"></i> Add Project</button>
+                </div>
+
+                <form id="project-form" class="admin-form">
+                    <h3 style="margin-bottom: 2rem; color: var(--gold); font-family: var(--font-head);"><i class="fas fa-rocket"></i> New Project Entity</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Codename / Title</label><input type="text" id="p-title" class="form-control" required></div>
+                        <div class="form-group"><label>System Descriptor (Tag)</label><input type="text" id="p-tag" class="form-control" placeholder="e.g. Autonomous Drone"></div>
+                        <div class="form-group"><label>Classification</label><select id="p-category"><option value="AI / ML">AI / ML</option><option value="Web Apps">Web Architecture</option><option value="Mobile Apps">Mobile Systems</option><option value="IoT">IoT / Hardware</option><option value="Data">Data Engineering</option></select></div>
+                        <div class="form-group"><label>Repository / Deployment Link</label><input type="url" id="p-link" class="form-control"></div>
+                        <div class="form-group full"><label>Technologies Used</label><input type="text" id="p-tech" class="form-control" required placeholder="TensorFlow, FastAPI, React"></div>
+                        <div class="form-group full"><label>Project Image</label><input type="file" id="p-image" class="form-control" accept="image/*"></div>
+                        <div class="form-group full" style="display: flex; gap: 15px; margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Deploy Project</button>
+                            <button type="button" class="btn btn-outline" onclick="toggleForm('project-form')">Abort</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="bento-header-row">
+                    <div>Project Designation</div>
+                    <div>Classification</div>
+                    <div>Tech Stack</div>
+                    <div style="text-align: right;">Action</div>
+                </div>
+                <div class="bento-list" id="projects-list">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+            <!-- Tab: Achievements -->
+            <section id="tab-achievements" class="tab-pane" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2 class="h2">Milestone Database</h2>
+                        <p>Track awards, timelines, and certifications</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="toggleForm('achievement-form')"><i class="fas fa-plus"></i> Add Achievement</button>
+                </div>
+
+                <form id="achievement-form" class="admin-form">
+                    <h3 style="margin-bottom: 2rem; color: var(--gold); font-family: var(--font-head);"><i class="fas fa-medal"></i> Log Event</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Event Classification</label><select id="a-type"><option value="hall_of_fame">Hall of Fame / Award</option><option value="timeline">Historical Timeline</option><option value="certificate">Certification</option></select></div>
+                        <div class="form-group"><label>Designation / Title</label><input type="text" id="a-title" class="form-control" required></div>
+                        <div class="form-group"><label>Timestamp (Date/Year)</label><input type="text" id="a-date" class="form-control"></div>
+                        <div class="form-group full"><label>Detailed Report (Description)</label><textarea id="a-desc" class="form-control" rows="3"></textarea></div>
+                        <div class="form-group full"><label>Achievement Image</label><input type="file" id="a-image" class="form-control" accept="image/*"></div>
+                        <div class="form-group full" style="display: flex; gap: 15px; margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Commit Record</button>
+                            <button type="button" class="btn btn-outline" onclick="toggleForm('achievement-form')">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="bento-header-row">
+                    <div>Record Designation</div>
+                    <div>Classification</div>
+                    <div>Timestamp</div>
+                    <div style="text-align: right;">Action</div>
+                </div>
+                <div class="bento-list" id="achievements-list">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+            <!-- Tab: Messages -->
+            <section id="tab-messages" class="tab-pane" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2 class="h2">Secure Comm Link</h2>
+                        <p>Inbound messages from external contacts</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="loadMessages()"><i class="fas fa-sync"></i> Sync</button>
+                </div>
+                <div class="msg-grid" id="messages-list">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/particles.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
