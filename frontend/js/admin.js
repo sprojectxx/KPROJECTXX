@@ -1,6 +1,6 @@
 // admin.js - Admin Portal Logic
 
-const API_URL = '/api';
+const API_URL = 'https://kprojectxx.onrender.com/api';
 let token = localStorage.getItem('adminToken');
 
 document.addEventListener('DOMContentLoaded', () => {
